@@ -1,7 +1,7 @@
 /**
  * Lecture des montants saisis au format français, convertis en centimes entiers.
  *
- * Format accepté (décision documentée dans le README) :
+ * Format accepté (documenté dans docs/calcul.md) :
  * - chiffres, avec au plus deux décimales : « 75 », « 402,40 », « 0,5 » (= 0,50 €) ;
  * - séparateur décimal : la virgule ; le point est accepté comme équivalent
  *   (« 402.40 »), car certains claviers numériques n'offrent que lui ;
@@ -14,7 +14,7 @@
  * et toute valeur au-delà de 999 999,99 €.
  */
 
-/** Montant maximal par champ : 999 999,99 €, soit 99 999 999 centimes (décision de Kelly). */
+/** Montant maximal par champ : 999 999,99 €, soit 99 999 999 centimes. */
 export const MONTANT_MAX_CENTIMES = 99_999_999;
 
 export type CodeErreurMontant = 'vide' | 'format' | 'negatif' | 'decimales' | 'max';

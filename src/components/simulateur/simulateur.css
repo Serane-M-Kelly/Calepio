@@ -1,5 +1,5 @@
 /*
- * Simulateur Calepio : formulaire et carte de résultat (AD v21).
+ * Simulateur Calepio : formulaire et carte de résultat.
  * Jetons de src/styles/global.css ; focus : --anneau-focus ; cibles ≥ 44 px.
  * Préfixe « sim- » : ces styles sont globaux (importés par l'îlot React).
  */
@@ -571,7 +571,7 @@
 }
 
 /* Carte très étroite (≈ 320 px d'écran) : le montant passe sous le nom. */
-@container carte (max-width: 16rem) { /* 390 px : montant à droite comme la maquette mobile v21 */
+@container carte (max-width: 16rem) { /* à 390 px, le montant reste à droite du nom */
   .sim-poche {
     grid-template-columns: 1.5rem minmax(0, 1fr);
     row-gap: 0.25rem;
@@ -648,7 +648,7 @@
   color: var(--legende);
 }
 
-/* ---------- Mouvement (CHARTE §5), jamais en mouvement réduit ---------- */
+/* ---------- Mouvement, jamais en mouvement réduit ---------- */
 
 @media (prefers-reduced-motion: no-preference) {
   .sim-resultat__contenu {

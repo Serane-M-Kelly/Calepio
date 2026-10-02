@@ -1,5 +1,5 @@
 /*
- * Styles globaux de Calepio : polices auto-hébergées, jetons v21, base.
+ * Styles globaux de Calepio : polices auto-hébergées, jetons de couleur et de taille, base.
  * Les styles propres à un composant restent dans son fichier .astro.
  */
 
@@ -39,7 +39,7 @@
 }
 
 :root {
-  /* Couleurs v21 (CHARTE §2). oklch fait référence, hex en repli. */
+  /* Couleurs. oklch fait référence, hex en repli. */
   --ivoire: #fbf7ef;
   --surface: #fffdf8;
   --encre: #22202e;
@@ -56,10 +56,10 @@
   --projets: #a8daa9;
   --imprevus: #dccb8a;
   --focus: #6db3e4;
-  /* Anneau bleu de la charte + liseré encre : le bleu seul n'atteint que 2,1:1 sur ivoire (WCAG 1.4.11 demande 3:1). */
+  /* Anneau bleu + liseré encre : le bleu seul n'atteint que 2,1:1 sur ivoire (WCAG 1.4.11 demande 3:1). */
   --anneau-focus: 0 0 0 3px var(--focus), 0 0 0 5px var(--encre);
 
-  /* Typographies (CHARTE §3). */
+  /* Typographies. */
   --font-titre: 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
   --font-texte: 'Figtree', ui-sans-serif, system-ui, sans-serif;
 
@@ -139,7 +139,7 @@ a:hover {
   color: var(--texte-2);
 }
 
-/* Focus clavier : anneau de 3 px (CHARTE §2), cerclé d'encre pour le contraste.
+/* Focus clavier : anneau de 3 px, cerclé d'encre pour le contraste.
    L'outline transparent reste visible en mode contraste élevé (forced-colors). */
 :focus-visible {
   outline: 2px solid transparent;
@@ -223,7 +223,7 @@ a:hover {
   }
 }
 
-/* Petit compartiment de catégorie (rappel du motif, CHARTE §4). */
+/* Petit compartiment de catégorie (rappel du motif). */
 .compartiment {
   flex: none;
   display: inline-block;

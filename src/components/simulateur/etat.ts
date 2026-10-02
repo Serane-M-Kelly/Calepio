@@ -20,7 +20,7 @@ import {
   type SaisieBudget,
 } from '../../lib/budget';
 
-/** Exemple fictif initial (UX_FLOWS PA v4). */
+/** Exemple fictif initial. */
 export const SAISIE_EXEMPLE: SaisieBudget = {
   revenus: '1 000',
   mode: 'enveloppe',

@@ -1,5 +1,5 @@
 /**
- * Les cinq poches fixes, dans l'ordre stable d'affichage (UX_FLOWS PA v4).
+ * Les cinq poches fixes, dans l'ordre stable d'affichage.
  * Cet ordre départage aussi les égalités de restes lors de l'attribution des tranches.
  */
 

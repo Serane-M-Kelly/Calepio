@@ -1,5 +1,5 @@
 /**
- * Moteur de répartition (UX_FLOWS PA v4), en centimes entiers.
+ * Moteur de répartition, en centimes entiers (règles : docs/calcul.md).
  *
  * R = revenus, E = plafond de l'enveloppe, C = charges.
  * Budget B = min(R, E) en mode enveloppe, sinon B = R ; surplus S = R − B.

@@ -1,5 +1,5 @@
 /**
- * Contenus éditoriaux de la landing (textes AD v21 et compléments PA v4).
+ * Contenus éditoriaux de la landing.
  * Données statiques lues au build : aucune saisie ni calcul ici.
  */
 
@@ -28,7 +28,7 @@ export interface Pocket {
   description: string;
 }
 
-/** Les cinq poches fixes, dans l’ordre d’affichage de la v21. */
+/** Les cinq poches fixes, dans l’ordre d’affichage. */
 export const pockets: readonly Pocket[] = [
   {
     id: 'besoins',
@@ -101,7 +101,7 @@ export interface FaqItem {
   answer: string;
 }
 
-/** Questions v21 (1, 3, 7, 8) et compléments proposés par PA (2, 4, 5, 6). */
+/** Questions fréquentes, dans l’ordre d’affichage. */
 export const faq: readonly FaqItem[] = [
   {
     id: 'banque',

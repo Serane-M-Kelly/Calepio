@@ -41,7 +41,7 @@ function conservation(r: ResultatFinancable): number {
   return r.charges + r.totalReparti + r.reliquat + r.surplus;
 }
 
-describe('exemples obligatoires UX_FLOWS (poids 40/20/15/15/10)', () => {
+describe('exemples de référence (poids 40/20/15/15/10)', () => {
   it('R=1000, E=400, C=75 : 130/65/50/50/30, reliquat 0, surplus 600', () => {
     const r = financable(calculerRepartition(enveloppe(1000, 400, 75)));
     expect(r.budget).toBe(c(400));

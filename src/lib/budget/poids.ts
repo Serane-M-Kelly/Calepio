@@ -1,5 +1,5 @@
 /**
- * Lecture des pourcentages des poches : points entiers de 0 à 100 (décision de Kelly).
+ * Lecture des pourcentages des poches : points entiers de 0 à 100.
  * Aucune normalisation : le total doit valoir exactement 100, sinon c'est une erreur.
  */
 
