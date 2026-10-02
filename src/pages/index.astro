@@ -1,12 +1,12 @@
 ---
 /**
  * Route « / » : landing Calepio v21, entièrement pré-rendue au build.
- * Le simulateur (phase 2) remplacera le contenu de SimulatorPlaceholder.
+ * Le simulateur est un îlot React (client:load) dans SectionSimulateur.astro.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import Hero from '../components/Hero.astro';
-import SimulatorPlaceholder from '../components/SimulatorPlaceholder.astro';
+import SectionSimulateur from '../components/SectionSimulateur.astro';
 import Method from '../components/Method.astro';
 import Control from '../components/Control.astro';
 import Faq from '../components/Faq.astro';
@@ -18,7 +18,7 @@ import { site } from '../data/landing';
   <SiteHeader />
   <main id="contenu" tabindex="-1">
     <Hero />
-    <SimulatorPlaceholder />
+    <SectionSimulateur />
     <Method />
     <Control />
     <Faq />

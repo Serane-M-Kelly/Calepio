@@ -1,0 +1,120 @@
+---
+/**
+ * Section #simulateur : titre et méthode en HTML statique, simulateur en îlot React.
+ *
+ * `client:load` : l'îlot est rendu au build (exemple fictif déjà calculé par le moteur),
+ * puis hydraté dès le chargement de la page. Choix plutôt que `client:visible` :
+ * la section suit directement le hero et le bouton « Simuler mon budget » y mène ;
+ * le formulaire doit être utilisable dès l'arrivée, sans attendre le défilement.
+ * Sans JavaScript, le formulaire reste désactivé et un message l'explique.
+ */
+import Simulateur from './Simulateur';
+import { SIMULATOR_ID } from '../data/landing';
+---
+<section class="simulateur" id={SIMULATOR_ID} aria-labelledby="simulateur-titre">
+  <div class="simulateur__interieur">
+    <h2 id="simulateur-titre" class="titre-section">À toi de répartir ton budget.</h2>
+
+    <noscript>
+      <p class="simulateur__sans-js">
+        Le simulateur a besoin de JavaScript pour calculer ta répartition : sans lui, le formulaire
+        ci-dessous reste inactif. Le résultat affiché est l’exemple fictif (revenus 1&nbsp;000&nbsp;€,
+        enveloppe 400&nbsp;€, charges 75&nbsp;€), calculé à l’avance avec la même méthode.
+      </p>
+    </noscript>
+
+    <Simulateur client:load />
+
+    <div class="simulateur__methode">
+      <h3 class="simulateur__sous-titre">Comment la répartition est calculée</h3>
+      <ol class="simulateur__ordre">
+        <li>Tu indiques tes revenus du mois.</li>
+        <li>
+          Tu peux choisir une enveloppe, un plafond charges comprises&nbsp;: la part des revenus
+          au-delà devient du surplus, non réparti. Sans enveloppe, tout le revenu est réparti.
+        </li>
+        <li>Tes charges sont réservées à leur montant exact, au centime.</li>
+        <li>
+          Le disponible est réparti entre les cinq poches selon tes pourcentages, par tranches de
+          5&nbsp;€. Le reste inférieur à 5&nbsp;€ est affiché à part, comme reste d’arrondi.
+        </li>
+        <li>
+          Si tes charges dépassent ton budget, aucune répartition n’est proposée&nbsp;: le montant
+          manquant est indiqué.
+        </li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<style>
+  .simulateur {
+    scroll-margin-top: 1rem;
+  }
+
+  .simulateur__interieur {
+    max-width: var(--page-max);
+    margin-inline: auto;
+    padding: 2rem var(--page-x) 2.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  .simulateur__interieur::before {
+    content: '';
+    display: block;
+    border-top: 1px solid rgba(34, 32, 46, 0.15);
+    margin-bottom: -0.25rem;
+  }
+
+  .simulateur__sans-js {
+    max-width: 40rem;
+    padding: 1rem 1.25rem;
+    border: 2px dashed var(--encre);
+    border-radius: 10px;
+    background: var(--surface);
+    font-weight: 500;
+    line-height: 1.5;
+  }
+
+  .simulateur__methode {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    max-width: 44rem;
+    padding-top: 0.5rem;
+  }
+
+  .simulateur__sous-titre {
+    font: 700 1.25rem/1.2 var(--font-titre);
+    letter-spacing: -0.01em;
+  }
+
+  .simulateur__ordre {
+    margin: 0;
+    padding-left: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    color: var(--texte-2);
+    font-size: 0.9375rem;
+    line-height: 1.55;
+  }
+
+  .simulateur__ordre li::marker {
+    font-weight: 700;
+    color: var(--encre);
+  }
+
+  @media (min-width: 60em) {
+    .simulateur__interieur {
+      padding: 3rem var(--page-x) 7rem;
+      gap: 3rem;
+    }
+
+    .simulateur__interieur::before {
+      margin-bottom: -1rem;
+    }
+  }
+</style>

@@ -3,21 +3,24 @@
  * Données statiques lues au build : aucune saisie ni calcul ici.
  */
 
+import type { PocheId } from '../lib/budget/poches';
+
 export const site = {
   name: 'Calepio',
   title: 'Simulateur de budget par enveloppes | Calepio',
   description:
-    'Prépare ton budget mensuel avec Calepio : réserve tes charges, puis répartis le reste entre cinq poches. Simulateur en préparation, sans connexion bancaire.',
+    'Prépare ton budget mensuel avec Calepio : réserve tes charges, puis répartis le reste entre cinq poches par tranches de 5 €. Simulateur sans connexion bancaire, avec un exemple fictif.',
   eyebrow: 'Simulateur de budget par enveloppes',
   headline: 'Ton mois prend forme.',
   intro: 'Réserve tes charges et répartis ton budget selon tes priorités.',
   cta: 'Simuler mon budget',
 } as const;
 
-/** Identifiant stable de la zone du futur simulateur (phase 2). */
+/** Identifiant stable de la section du simulateur (ancre #simulateur). */
 export const SIMULATOR_ID = 'simulateur';
 
-export type PocketId = 'besoins' | 'epargne' | 'envies' | 'projets' | 'imprevus';
+/** Identifiants des poches : source unique dans le moteur (src/lib/budget/poches.ts). */
+export type PocketId = PocheId;
 
 export interface Pocket {
   id: PocketId;
@@ -146,6 +149,6 @@ export const faq: readonly FaqItem[] = [
     id: 'installer',
     question: 'Puis-je installer l’application ?',
     answer:
-      'Pas pour le moment. L’application est en préparation ; sa première étape, la simulation de répartition du budget, est en cours de réalisation sur cette page.',
+      'Pas pour le moment. L’application est en préparation. Cette page en présente une première étape : la simulation de répartition du budget.',
   },
 ];
