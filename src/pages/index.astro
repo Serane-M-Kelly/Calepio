@@ -1,19 +1,35 @@
 ---
-import SetupProbe from '../components/SetupProbe';
+/**
+ * Route « / » : landing Calepio v21, entièrement pré-rendue au build.
+ * Le simulateur (phase 2) remplacera le contenu de SimulatorPlaceholder.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import Hero from '../components/Hero.astro';
+import SimulatorPlaceholder from '../components/SimulatorPlaceholder.astro';
+import Method from '../components/Method.astro';
+import Control from '../components/Control.astro';
+import Faq from '../components/Faq.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import { site } from '../data/landing';
 ---
-<!doctype html>
-<html lang="fr">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="robots" content="noindex" />
-    <title>Calepio — préparation locale</title>
-  </head>
-  <body>
-    <main>
-      <h1>Calepio</h1>
-      <p>Le site et le simulateur sont en préparation.</p>
-      <SetupProbe client:load />
-    </main>
-  </body>
-</html>
+<BaseLayout title={site.title} description={site.description}>
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+  <SiteHeader />
+  <main id="contenu" tabindex="-1">
+    <Hero />
+    <SimulatorPlaceholder />
+    <Method />
+    <Control />
+    <Faq />
+  </main>
+  <SiteFooter />
+</BaseLayout>
+
+<style>
+  /* Cible du lien d'évitement (tabindex=-1) : pas d'anneau sur toute la page. */
+  main:focus {
+    outline: none;
+    box-shadow: none;
+  }
+</style>

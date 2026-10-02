@@ -1,0 +1,53 @@
+---
+import Logo from './Logo.astro';
+import { site } from '../data/landing';
+---
+<header class="entete">
+  <div class="entete__interieur">
+    <Logo size={36} class="entete__logo" />
+    <p class="surtitre">{site.eyebrow}</p>
+  </div>
+</header>
+
+<style>
+  .entete__interieur {
+    max-width: var(--page-max);
+    margin-inline: auto;
+    padding: 1.625rem var(--page-x) 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2.75rem;
+  }
+
+  .entete__interieur :global(.entete__logo) {
+    width: auto;
+    height: 28px;
+  }
+
+  .surtitre {
+    font: 600 0.9375rem/1.35 var(--font-texte);
+    color: var(--texte-2);
+  }
+
+  @media (min-width: 60em) {
+    .entete__interieur {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.5rem;
+      padding-block: 2.25rem;
+    }
+
+    .entete__interieur :global(.entete__logo) {
+      height: 36px;
+    }
+
+    .surtitre {
+      font-weight: 500;
+      line-height: 1.3;
+      color: var(--legende);
+      text-align: right;
+    }
+  }
+</style>

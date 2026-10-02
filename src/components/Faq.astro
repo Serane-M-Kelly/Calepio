@@ -1,0 +1,158 @@
+---
+/**
+ * FAQ en <details>/<summary> : dépliable au clavier (Entrée, Espace) et
+ * lisible sans JavaScript. Le contenu des réponses est présent dans le HTML.
+ */
+import { faq } from '../data/landing';
+---
+<section class="faq" id="questions" aria-labelledby="faq-titre">
+  <div class="faq__interieur">
+    <h2 id="faq-titre" class="titre-section titre-section--court">Quelques questions avant de commencer.</h2>
+    <div class="faq__liste">
+      {
+        faq.map((item) => (
+          <details class="question" id={`question-${item.id}`}>
+            <summary class="question__intitule">
+              <span class="question__texte">{item.question}</span>
+              <span class="question__signe" aria-hidden="true" />
+            </summary>
+            <p class="question__reponse">{item.answer}</p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq__interieur {
+    max-width: var(--page-max);
+    margin-inline: auto;
+    padding: 5rem var(--page-x);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  .faq__liste {
+    max-width: 45rem;
+    border-top: 1px solid var(--filet);
+  }
+
+  .question {
+    border-bottom: 1px solid var(--filet);
+    padding: 1.25rem 0;
+  }
+
+  .question__intitule {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.25rem;
+    min-height: var(--cible);
+    cursor: pointer;
+    list-style: none;
+    border-radius: 6px;
+    font: 600 1.0625rem/1.35 var(--font-texte);
+    text-wrap: pretty;
+  }
+
+  .question__intitule::-webkit-details-marker {
+    display: none;
+  }
+
+  .question__intitule:focus-visible {
+    box-shadow: var(--anneau-focus);
+  }
+
+  .question__texte {
+    min-width: 0;
+    overflow-wrap: break-word;
+  }
+
+  .question__intitule:hover .question__texte {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  /* Pastille + / − dessinée en CSS (pas de glyphe lu par les lecteurs d'écran). */
+  .question__signe {
+    position: relative;
+    flex: none;
+    width: 2rem;
+    height: 2rem;
+    border: 1.5px solid var(--encre);
+    border-radius: 999px;
+  }
+
+  .question__signe::before,
+  .question__signe::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 0.75rem;
+    height: 1.5px;
+    background: var(--encre);
+    transform: translate(-50%, -50%);
+  }
+
+  .question__signe::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+
+  .question[open] .question__signe::after {
+    display: none;
+  }
+
+  .question__reponse {
+    margin-top: 0.875rem;
+    padding-right: 3.5rem;
+    max-width: 40rem;
+    color: var(--texte-2);
+    text-wrap: pretty;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .question[open] .question__reponse {
+      animation: faq-apparition 200ms cubic-bezier(0.2, 0.7, 0.3, 1);
+    }
+  }
+
+  @keyframes faq-apparition {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @media (max-width: 29.99em) {
+    .question__reponse {
+      padding-right: 0;
+    }
+  }
+
+  @media (min-width: 60em) {
+    .faq__interieur {
+      grid-template-columns: minmax(0, 22.5rem) minmax(0, 1fr);
+      gap: clamp(3rem, 8.9vw, 8rem);
+      padding: 9rem var(--page-x) 9.5rem;
+    }
+
+    .question {
+      padding: 1.625rem 0;
+    }
+
+    .question__intitule {
+      font-size: 1.25rem;
+    }
+
+    .question__signe {
+      width: 2.25rem;
+      height: 2.25rem;
+    }
+  }
+</style>

@@ -1,0 +1,397 @@
+---
+/**
+ * Hero v21 : titre, accroche, CTA vers le simulateur et motif illustratif.
+ * Les trois bandes illustrent l'idée de compartiments ; elles ne représentent
+ * ni les cinq poches ni une répartition chiffrée.
+ *
+ * Mouvement (CHARTE §5) : 400 ms d'attente, trois états (1,5 s chacun),
+ * transitions de 700 ms, arrêt sur l'état final, sans boucle.
+ * - L'animation est pilotée en CSS : elle démarre sans attendre JavaScript.
+ * - `prefers-reduced-motion: reduce` affiche l'état final dès le premier rendu.
+ * - Le script ajoute pause / reprise / rejouer et suit les changements de préférence.
+ * La hauteur de la zone ne dépend pas de l'état : la suite de la page ne bouge pas.
+ */
+import { site, SIMULATOR_ID } from '../data/landing';
+
+const bands = [
+  { label: 'Besoins', color: 'besoins' },
+  { label: 'Épargne', color: 'epargne' },
+  { label: 'Envies', color: 'envies' },
+] as const;
+---
+<section class="hero" aria-labelledby="hero-titre">
+  <div class="hero__texte">
+    <h1 id="hero-titre" class="hero__titre">{site.headline}</h1>
+    <p class="hero__intro">{site.intro}</p>
+    <p class="hero__action">
+      <a class="bouton-principal hero__cta" href={`#${SIMULATOR_ID}`}>
+        {site.cta} <span aria-hidden="true">→</span>
+      </a>
+    </p>
+  </div>
+
+  <div class="hero__visuel" data-hero data-etat="lecture">
+    <div
+      class="hero__zone"
+      role="img"
+      aria-label="Illustration : trois compartiments de tailles différentes, Besoins, Épargne et Envies. Ce n’est pas une répartition chiffrée."
+    >
+      {
+        bands.map((band, i) => (
+          <div class={`bande bande--${i} c-${band.color}`} data-bande={i}>
+            <span class="bande__libelle" aria-hidden="true">
+              {band.label}
+            </span>
+          </div>
+        ))
+      }
+    </div>
+    <div class="hero__commande">
+      <button type="button" class="hero__bouton" data-hero-bouton hidden>
+        <span class="hero__bouton-pastille">
+          <span data-hero-libelle>Pause</span><span class="sr-only" data-hero-complement> l’animation</span>
+          <span class="hero__bouton-icone" aria-hidden="true" data-hero-icone>❙❙</span>
+        </span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    max-width: var(--page-max);
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hero__texte {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: 1rem var(--page-x) 0;
+  }
+
+  .hero__titre {
+    font-family: var(--font-titre);
+    font-weight: 800;
+    font-size: var(--fs-hero);
+    line-height: 0.98;
+    letter-spacing: -0.045em;
+    text-wrap: balance;
+  }
+
+  .hero__intro {
+    max-width: 31.25rem;
+    font-size: var(--fs-intro);
+    line-height: 1.5;
+    color: var(--texte-2);
+    text-wrap: pretty;
+  }
+
+  .hero__action {
+    display: flex;
+  }
+
+  .hero__cta {
+    width: 100%;
+  }
+
+  /* ---- Motif ---- */
+  .hero__visuel {
+    margin-top: 2.25rem;
+  }
+
+  .hero__zone {
+    /* Mobile : zone de 390 × 300 px, joints de 12 px, arrondi de 14 px. */
+    --deborde: -16px;
+    --rayon: 14px;
+    --courbe-x: min(28.2cqw, 9rem);
+    --courbe-y: min(14.36cqw, 4.5rem);
+    position: relative;
+    container-type: inline-size;
+    aspect-ratio: 390 / 300;
+    max-height: 23.75rem;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .bande {
+    position: absolute;
+    right: var(--deborde);
+    border-radius: var(--rayon) 0 0 var(--rayon);
+    /* Avec une très grande taille de texte, le libellé (décoratif, aria-hidden) est rogné
+       par sa bande plutôt que de chevaucher la suivante. */
+    overflow: hidden;
+    /* État final par défaut : c'est l'affichage en mouvement réduit et sans animation. */
+    width: var(--w2);
+    height: var(--h2);
+    top: var(--t2);
+  }
+
+  /* Valeurs mobile, en proportion de la zone (largeur 390, hauteur 300). */
+  .bande--0 {
+    --w0: 86.15%; --w1: 70.77%; --w2: 88.72%;
+    --h0: 43.33%; --h1: 26%; --h2: 32%;
+    --t0: 0%; --t1: 0%; --t2: 0%;
+  }
+  .bande--1 {
+    --w0: 63.08%; --w1: 88.72%; --w2: 60.51%;
+    --h0: 22%; --h1: 40.67%; --h2: 28.67%;
+    --t0: 47.33%; --t1: 30%; --t2: 36%;
+  }
+  .bande--2 {
+    --w0: 73.33%; --w1: 68.21%; --w2: 75.9%;
+    --h0: 26.67%; --h1: 25.33%; --h2: 31.33%;
+    --t0: 73.33%; --t1: 74.67%; --t2: 68.67%;
+    border-radius: var(--rayon) 0 0 var(--courbe-x) / var(--rayon) 0 0 var(--courbe-y);
+  }
+
+  .bande__libelle {
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 1rem 1.125rem;
+    font: 600 1.0625rem/1.15 var(--font-texte);
+    letter-spacing: -0.005em;
+    color: var(--encre);
+    white-space: nowrap;
+  }
+
+  @keyframes hero-bandes {
+    0%,
+    34.091% {
+      width: var(--w0);
+      height: var(--h0);
+      top: var(--t0);
+      animation-timing-function: cubic-bezier(0.45, 0, 0.25, 1);
+    }
+    50%,
+    84.091% {
+      width: var(--w1);
+      height: var(--h1);
+      top: var(--t1);
+      animation-timing-function: cubic-bezier(0.45, 0, 0.25, 1);
+    }
+    100% {
+      width: var(--w2);
+      height: var(--h2);
+      top: var(--t2);
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    [data-etat='lecture'] .bande {
+      animation: hero-bandes 4.4s linear 0.4s both;
+    }
+
+    [data-etat='relecture'] .bande {
+      animation: hero-bandes 4.4s linear 0s both;
+    }
+
+    [data-pause] .bande {
+      animation-play-state: paused;
+    }
+  }
+
+  /* ---- Commande pause / reprise / rejouer ---- */
+  .hero__commande {
+    display: flex;
+    min-height: var(--cible);
+    padding: 0.5rem calc(var(--page-x) - 0.25rem) 0;
+  }
+
+  .hero__bouton {
+    display: inline-flex;
+    align-items: center;
+    min-width: var(--cible);
+    min-height: var(--cible);
+    padding: 0 0.25rem;
+    border: none;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--encre);
+    cursor: pointer;
+    font: inherit;
+  }
+
+  .hero__bouton[hidden] {
+    display: inline-flex;
+    visibility: hidden;
+  }
+
+  .hero__bouton-pastille {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    min-height: 1.875rem;
+    padding: 0.25rem 0.75rem;
+    border: 1px solid rgba(34, 32, 46, 0.3);
+    border-radius: 999px;
+    background: var(--ivoire);
+    font: 600 0.875rem/1.1 var(--font-texte);
+    max-width: 100%;
+  }
+
+  .hero__bouton:hover .hero__bouton-pastille {
+    border-color: var(--encre);
+  }
+
+  .hero__bouton:focus-visible {
+    box-shadow: none;
+  }
+
+  .hero__bouton:focus-visible .hero__bouton-pastille {
+    box-shadow: var(--anneau-focus);
+  }
+
+  .hero__bouton:disabled {
+    cursor: default;
+  }
+
+  .hero__bouton:disabled .hero__bouton-pastille {
+    border-style: dashed;
+    color: var(--legende);
+  }
+
+  /* ---- Ordinateur ---- */
+  @media (min-width: 60em) {
+    .hero {
+      grid-template-columns: minmax(0, 620fr) minmax(0, 668fr);
+      column-gap: clamp(2rem, 5vw, 4.5rem);
+      padding-left: var(--page-x);
+    }
+
+    .hero__texte {
+      justify-content: center;
+      gap: 2rem;
+      padding: 1.5rem 0 7rem;
+    }
+
+    .hero__action {
+      padding-top: 0.5rem;
+    }
+
+    .hero__cta {
+      width: auto;
+    }
+
+    .hero__visuel {
+      margin-top: 0;
+    }
+
+    .hero__zone {
+      /* Ordinateur : zone de 668 × 600 px pour les bandes, joints de 24 px, arrondi de 18 px. */
+      --deborde: -24px;
+      --rayon: 18px;
+      --courbe-x: min(29.94cqw, 200px);
+      --courbe-y: min(16.47cqw, 110px);
+      aspect-ratio: 668 / 600;
+      max-height: none;
+    }
+
+    .bande--0 {
+      --w0: 93.41%; --w1: 73.95%; --w2: 93.41%;
+      --h0: 50%; --h1: 28%; --h2: 33.33%;
+    }
+    .bande--1 {
+      --w0: 63.47%; --w1: 93.41%; --w2: 60.48%;
+      --h0: 20%; --h1: 42%; --h2: 28.33%;
+      --t0: 54%; --t1: 32%; --t2: 37.33%;
+    }
+    .bande--2 {
+      --w0: 72.46%; --w1: 66.47%; --w2: 78.44%;
+      --h0: 22%; --h1: 22%; --h2: 30.33%;
+      --t0: 78%; --t1: 78%; --t2: 69.67%;
+    }
+
+    .bande__libelle {
+      padding: 1.625rem 1.875rem;
+      font-size: 1.3125rem;
+    }
+
+    .hero__commande {
+      justify-content: flex-end;
+      padding: 0.25rem calc(var(--page-x) - 0.25rem) 0 0;
+    }
+  }
+</style>
+
+<script>
+  type Etat = 'lecture' | 'relecture' | 'fin' | 'statique';
+
+  function initHero(root: HTMLElement) {
+    const bouton = root.querySelector<HTMLButtonElement>('[data-hero-bouton]');
+    const libelle = root.querySelector<HTMLElement>('[data-hero-libelle]');
+    const icone = root.querySelector<HTMLElement>('[data-hero-icone]');
+    const complement = root.querySelector<HTMLElement>('[data-hero-complement]');
+    const derniere = root.querySelector<HTMLElement>('[data-bande="2"]');
+    if (!bouton || !libelle || !icone || !complement || !derniere) return;
+
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const etat = () => root.dataset.etat as Etat;
+    const enPause = () => root.hasAttribute('data-pause');
+
+    const afficherCommande = () => {
+      const e = etat();
+      let texte = 'Pause';
+      let symbole = '❙❙';
+      if (e === 'statique') {
+        texte = 'Animation désactivée';
+        symbole = '';
+      } else if (e === 'fin') {
+        texte = 'Rejouer';
+        symbole = '↻';
+      } else if (enPause()) {
+        texte = 'Reprendre';
+        symbole = '▸';
+      }
+      libelle.textContent = texte;
+      icone.textContent = symbole;
+      // « Animation désactivée » se suffit : pas de complément « l’animation ».
+      complement.hidden = e === 'statique';
+      bouton.disabled = e === 'statique';
+    };
+
+    const appliquer = (e: Etat, pause = false) => {
+      root.dataset.etat = e;
+      root.toggleAttribute('data-pause', pause);
+      afficherCommande();
+    };
+
+    // État initial : la feuille de style a déjà appliqué la préférence système
+    // (aucun flash animé en mouvement réduit). Le script ne fait que synchroniser.
+    if (mq.matches) {
+      appliquer('statique');
+    } else {
+      const anim = derniere.getAnimations?.()[0];
+      appliquer(anim && anim.playState === 'finished' ? 'fin' : 'lecture');
+    }
+    bouton.hidden = false;
+
+    derniere.addEventListener('animationend', () => {
+      const e = etat();
+      if (e === 'lecture' || e === 'relecture') appliquer('fin');
+    });
+
+    bouton.addEventListener('click', () => {
+      const e = etat();
+      if (e === 'lecture' || e === 'relecture') {
+        appliquer(e, !enPause());
+      } else if (e === 'fin') {
+        // L'état « fin » n'a pas d'animation : un recalcul de style puis
+        // « relecture » relance l'animation depuis le premier état, sans délai.
+        void root.offsetWidth;
+        appliquer('relecture');
+      }
+    });
+
+    // Changement de préférence pendant la visite : état final immédiat et
+    // commande désactivée ; au retour du mouvement, pas de relance automatique.
+    mq.addEventListener('change', (event) => {
+      appliquer(event.matches ? 'statique' : 'fin');
+    });
+  }
+
+  document.querySelectorAll<HTMLElement>('[data-hero]').forEach(initHero);
+</script>

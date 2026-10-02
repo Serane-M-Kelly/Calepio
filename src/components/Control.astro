@@ -1,0 +1,73 @@
+---
+/** Section « Tu gardes la main. » (sans motif, CHARTE §4). */
+import { control } from '../data/landing';
+---
+<section class="gardes-la-main" id="tu-gardes-la-main" aria-labelledby="main-titre">
+  <div class="bloc__interieur">
+    <h2 id="main-titre" class="titre-section titre-section--court">Tu gardes la main.</h2>
+    <ul class="liste-filets">
+      {
+        control.map((item) => (
+          <li class="liste-filets__item">
+            <h3 class="liste-filets__titre">{item.title}</h3>
+            <p class="liste-filets__texte">{item.text}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .bloc__interieur {
+    max-width: var(--page-max);
+    margin-inline: auto;
+    padding: 4.5rem var(--page-x) 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  .liste-filets {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-width: 45rem;
+    border-top: 1px solid var(--filet);
+  }
+
+  .liste-filets__item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--filet);
+  }
+
+  .liste-filets__titre {
+    font: 700 1.25rem/1.2 var(--font-titre);
+    letter-spacing: -0.01em;
+  }
+
+  .liste-filets__texte {
+    color: var(--texte-2);
+    text-wrap: pretty;
+  }
+
+  @media (min-width: 60em) {
+    .bloc__interieur {
+      grid-template-columns: minmax(0, 22.5rem) minmax(0, 1fr);
+      gap: clamp(3rem, 8.9vw, 8rem);
+      padding-top: 9.5rem;
+    }
+
+    .liste-filets__item {
+      padding: 1.625rem 0;
+    }
+
+    .liste-filets__titre {
+      font-size: 1.5rem;
+    }
+  }
+</style>

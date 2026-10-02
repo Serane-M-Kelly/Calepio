@@ -1,0 +1,156 @@
+---
+/** Section sombre « Une répartition, trois gestes. » (méthode). */
+import { steps } from '../data/landing';
+---
+<section class="methode" id="methode" aria-labelledby="methode-titre">
+  <div class="methode__interieur">
+    <h2 id="methode-titre" class="titre-section methode__titre">Une répartition, trois gestes.</h2>
+    <ol class="gestes">
+      {
+        steps.map((step) => (
+          <li class="geste">
+            <span class={`geste__numero n-${step.pocket}`} aria-hidden="true">
+              {step.number}
+            </span>
+            <span class="geste__texte">
+              <span class="geste__titre">{step.title}</span>
+              <span class="geste__description">
+                {step.text}
+                {'strong' in step && (
+                  <>
+                    {' '}
+                    <strong>{step.strong}</strong>
+                  </>
+                )}
+              </span>
+            </span>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .methode {
+    margin-top: 1.5rem;
+    background: var(--encre);
+    color: var(--ivoire);
+    /* Grande courbe inférieure gauche (rappel du motif). */
+    border-bottom-left-radius: 77% 60px;
+  }
+
+  .methode__interieur {
+    max-width: var(--page-max);
+    margin-inline: auto;
+    padding: 4.5rem var(--page-x) 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .methode__titre {
+    color: var(--ivoire);
+  }
+
+  .gestes {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .geste {
+    display: grid;
+    grid-template-columns: 4rem minmax(0, 1fr);
+    column-gap: 0.875rem;
+    padding: 1.75rem 0;
+    border-top: 1px solid var(--filet-sur-encre);
+  }
+
+  .geste__numero {
+    font: 800 3rem/0.85 var(--font-titre);
+    letter-spacing: -0.05em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .n-besoins { color: var(--besoins); }
+  .n-epargne { color: var(--epargne); }
+  .n-envies { color: var(--envies); }
+
+  .geste__texte {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+
+  .geste__titre {
+    font: 700 1.3125rem/1.15 var(--font-titre);
+    letter-spacing: -0.015em;
+    color: var(--ivoire);
+  }
+
+  .geste__description {
+    font-size: 1rem;
+    line-height: 1.55;
+    color: var(--texte-sur-encre);
+    text-wrap: pretty;
+  }
+
+  .geste__description strong {
+    color: var(--ivoire);
+    font-weight: 600;
+  }
+
+  @media (min-width: 60em) {
+    .methode {
+      margin-top: 4.5rem;
+      border-bottom-left-radius: 50% 150px;
+    }
+
+    .methode__interieur {
+      padding: 8.5rem var(--page-x) 12.5rem;
+      gap: 3.5rem;
+    }
+
+    .gestes {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 3rem;
+    }
+
+    .geste {
+      display: flex;
+      flex-direction: column;
+      gap: 1.125rem;
+      padding: 1.5rem 0 0;
+    }
+
+    .geste__numero {
+      font-size: clamp(4.5rem, 7.2vw, 6.5rem);
+    }
+
+    .geste__texte {
+      margin-top: 0.875rem;
+      gap: 1.125rem;
+    }
+
+    .geste__titre {
+      font-size: clamp(1.375rem, 1.8vw, 1.625rem);
+    }
+
+    .geste__description {
+      font-size: 1.0625rem;
+    }
+  }
+
+  @media (min-width: 80em) {
+    .methode__interieur {
+      display: grid;
+      grid-template-columns: 22.5rem minmax(0, 1fr);
+      gap: clamp(4rem, 8.9vw, 8rem);
+      align-items: start;
+    }
+  }
+</style>

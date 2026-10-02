@@ -1,0 +1,5 @@
+<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+<title>Calepio — icône 32 px, symbole en adaptation optique</title>
+<rect width="32" height="32" rx="7.2" fill="#F4BE92"></rect>
+<g transform="translate(7.66 7) scale(0.375)"><g id="symbole" fill="#22202E"><path id="contour" d="M46 2H16C8.27 2 2 8.27 2 16V27C2 37.49 10.51 46 21 46H46V39H21C14.65 39 9.5 33.85 9.5 27.5V16C9.5 12.13 12.13 9 16 9H46Z"></path><path id="compartiment-long" d="M18 14.5H37V22.5H18C16.34 22.5 15 21.16 15 19.5V17.5C15 15.84 16.34 14.5 18 14.5Z"></path><path id="compartiment-court" d="M17.5 27.5H26.5V33.5H18.5C16.57 33.5 15 31.93 15 30C15 28.62 16.12 27.5 17.5 27.5Z"></path></g></g>
+</svg>

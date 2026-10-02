@@ -1,0 +1,239 @@
+/*
+ * Styles globaux de Calepio : polices auto-hébergées, jetons v21, base.
+ * Les styles propres à un composant restent dans son fichier .astro.
+ */
+
+/* Polices : fichiers variables Fontsource 5.3.0 (Google Fonts), SIL OFL 1.1.
+   Licences : /fonts/OFL-Bricolage-Grotesque.txt et /fonts/OFL-Figtree.txt. */
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200 800;
+  src: url('/fonts/bricolage-grotesque-latin-opsz-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200 800;
+  src: url('/fonts/bricolage-grotesque-latin-ext-opsz-normal.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Figtree';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 300 900;
+  src: url('/fonts/figtree-latin-wght-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Figtree';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 300 900;
+  src: url('/fonts/figtree-latin-ext-wght-normal.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+:root {
+  /* Couleurs v21 (CHARTE §2). oklch fait référence, hex en repli. */
+  --ivoire: #fbf7ef;
+  --surface: #fffdf8;
+  --encre: #22202e;
+  --texte-2: #45414f;
+  --legende: #5a5664;
+  --texte-sur-encre: #d8d3ca;
+  --filet: rgba(34, 32, 46, 0.14);
+  --filet-fort: rgba(34, 32, 46, 0.16);
+  --filet-sur-encre: rgba(251, 247, 239, 0.22);
+
+  --besoins: #f4be92;
+  --epargne: #97d3fd;
+  --envies: #d7bdf8;
+  --projets: #a8daa9;
+  --imprevus: #dccb8a;
+  --focus: #6db3e4;
+  /* Anneau bleu de la charte + liseré encre : le bleu seul n'atteint que 2,1:1 sur ivoire (WCAG 1.4.11 demande 3:1). */
+  --anneau-focus: 0 0 0 3px var(--focus), 0 0 0 5px var(--encre);
+
+  /* Typographies (CHARTE §3). */
+  --font-titre: 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
+  --font-texte: 'Figtree', ui-sans-serif, system-ui, sans-serif;
+
+  /* Tailles fluides : valeur mobile 390 px -> valeur ordinateur 1440 px. */
+  --fs-hero: clamp(2.75rem, 2.056rem + 4.381vw, 6rem); /* 50 -> 96 */
+  --fs-h2: clamp(2.125rem, 1.771rem + 2.476vw, 4rem); /* 38 -> 64 */
+  --fs-h2-court: clamp(1.875rem, 1.707rem + 1.714vw, 3.25rem); /* 34 -> 52 */
+  --fs-intro: clamp(1.125rem, 1.032rem + 0.381vw, 1.375rem); /* 18 -> 22 */
+  --fs-corps: clamp(1rem, 0.977rem + 0.095vw, 1.0625rem); /* 16 -> 17 */
+
+  /* Marges de page : 22 px mobile -> 80 px ordinateur. */
+  --page-x: clamp(1.375rem, 0.029rem + 5.524vw, 5rem);
+  --page-max: 90rem;
+
+  --ease-hero: cubic-bezier(0.45, 0, 0.25, 1);
+  --ease-ui: cubic-bezier(0.2, 0.7, 0.3, 1);
+  --cible: 2.75rem; /* 44 px : zone tactile minimale */
+}
+
+@supports (color: oklch(0 0 0)) {
+  :root {
+    --besoins: oklch(0.84 0.085 60);
+    --epargne: oklch(0.84 0.085 240);
+    --envies: oklch(0.84 0.085 305);
+    --projets: oklch(0.84 0.085 145);
+    --imprevus: oklch(0.84 0.085 95);
+    --focus: oklch(0.74 0.1 240);
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--ivoire);
+  color: var(--encre);
+  font-family: var(--font-texte);
+  font-size: var(--fs-corps);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  overflow-wrap: break-word;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: var(--encre);
+}
+
+a:hover {
+  color: var(--texte-2);
+}
+
+/* Focus clavier : anneau de 3 px (CHARTE §2), cerclé d'encre pour le contraste.
+   L'outline transparent reste visible en mode contraste élevé (forced-colors). */
+:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: var(--anneau-focus);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--page-x);
+  top: 0.75rem;
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--cible);
+  padding: 0 1.125rem;
+  border-radius: 999px;
+  background: var(--encre);
+  color: var(--ivoire);
+  font-weight: 700;
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus-visible {
+  transform: none;
+  color: var(--ivoire);
+}
+
+/* Titres de section partagés. */
+.titre-section {
+  font-family: var(--font-titre);
+  font-weight: 800;
+  font-size: var(--fs-h2);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+
+.titre-section--court {
+  font-size: var(--fs-h2-court);
+}
+
+/* Bouton principal (encre). */
+.bouton-principal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  min-height: 3.5rem;
+  padding: 0.5rem 1.875rem;
+  border-radius: 999px;
+  background: var(--encre);
+  color: var(--ivoire);
+  font: 700 1.0625rem/1.2 var(--font-texte);
+  text-decoration: none;
+  text-align: center;
+}
+
+.bouton-principal:hover {
+  color: var(--ivoire);
+  background: #34313f;
+}
+
+@media (min-width: 60em) {
+  .bouton-principal {
+    min-height: 3.75rem;
+    font-size: 1.125rem;
+  }
+}
+
+/* Petit compartiment de catégorie (rappel du motif, CHARTE §4). */
+.compartiment {
+  flex: none;
+  display: inline-block;
+  width: 1.375rem;
+  height: 0.9375rem;
+  border-radius: 0.375rem 0 0 0.375rem;
+}
+
+.c-besoins { background: var(--besoins); }
+.c-epargne { background: var(--epargne); }
+.c-envies { background: var(--envies); }
+.c-projets { background: var(--projets); }
+.c-imprevus { background: var(--imprevus); }
